@@ -3,6 +3,7 @@ module Kit
 #r "nuget: FSharp.Data, 6.0.0"
 
 open FSharp.Data
+open Model
 
 type ThemesTypeProvider = CsvProvider<Sample="../data/themes.csv">
 type SetsTypeProvider = CsvProvider<Sample="../data/sets.csv">
@@ -16,14 +17,16 @@ type ElementsTypeProvider = CsvProvider<Sample="../data/elements.csv">
 type MiniFigsTypeProvider = CsvProvider<Sample="../data/minifigs.csv">
 type InventoryMiniFigsTypeProvider = CsvProvider<Sample="../data/inventory_minifigs.csv">
 type ColorsTypeProvider = CsvProvider<Sample="../data/colors.csv">
-let parts = PartsTypeProvider.GetSample().Rows
 
-let printFirst10Parts () =
-    parts
-    |> Seq.take 10
-    |> Seq.map (fun p -> p.Part_num, p.Name) 
-    |> Map.ofSeq
-    |> Map.iter (printfn "%A: %A")
+let loadThemes =
+    ThemesTypeProvider.GetSample().Rows
+    |> Seq.map (fun t -> { Name = t.Name })
 
-printFirst10Parts ()
+let loadSets =
+    SetsTypeProvider.GetSample().Rows
+    |> Seq.map (fun s -> { Number = s.Set_num
+                           Name = s.Name
+                           Year = s.Year
+                           ThemeId = s.Theme_id
+                           NumberOfParts = s.Num_parts })
 
