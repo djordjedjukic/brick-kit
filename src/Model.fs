@@ -1,5 +1,9 @@
 module Model
 
+type Theme = {    
+    Name: string
+}
+
 type Set = {
     Number: string
     Name: string
