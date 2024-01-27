@@ -29,5 +29,5 @@ type Part = {
 type Inventory = {    
     Parts: Part list
     Quantity: int
-    IsSpare: bool    
+    IsSpare: bool   
 }
