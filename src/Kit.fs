@@ -1,5 +1,7 @@
 module Kit
 
+#r "nuget: FSharp.Data, 6.0.0"
+
 open FSharp.Data
 
 type ThemesTypeProvider = CsvProvider<Sample="../data/themes.csv">
@@ -21,7 +23,7 @@ let printFirst10Parts () =
     |> Seq.take 10
     |> Seq.map (fun p -> p.Part_num, p.Name) 
     |> Map.ofSeq
-    |> Map.iter (fun key value -> printfn "%A: %A" key value)
+    |> Map.iter (printfn "%A: %A")
 
 printFirst10Parts ()
 
