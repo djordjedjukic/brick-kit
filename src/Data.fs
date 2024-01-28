@@ -1,8 +1,9 @@
-module Model
+module Data
 
 open FSharp.Data
 
-type Theme = {    
+type Theme = {
+    Id: int
     Name: string
 }
 
@@ -53,7 +54,7 @@ type ColorsTypeProvider = CsvProvider<"../data/colors.csv">
 
 let themes =
     ThemesTypeProvider.GetSample().Rows
-    |> Seq.map (fun t -> { Name = t.Name })
+    |> Seq.map (fun t -> { Id = t.Id; Name = t.Name })
 
 let sets =
     SetsTypeProvider.GetSample().Rows
