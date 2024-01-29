@@ -72,19 +72,19 @@ let themes =
         Name = t.Name
         Sets =
             setsData.Rows
-             |> Seq.filter (fun s -> s.Theme_id = t.Id)
-             |> Seq.map (fun s -> {
-                 Number = s.Set_num
-                 Name = s.Name
-                 Year = s.Year
-                 Theme = { Id = t.Id; Name = t.Name; Sets = [] }
-                 NumberOfParts = s.Num_parts
-                 Inventories = []
-             })
-             |> Seq.toList
-             
+            |> Seq.filter (fun s -> s.Theme_id = t.Id)
+            |> Seq.map (fun s -> {
+                Number = s.Set_num
+                Name = s.Name
+                Year = s.Year
+                Theme = { Id = t.Id; Name = t.Name; Sets = [] }
+                NumberOfParts = s.Num_parts
+                Inventories = []
+            })
+            |> Seq.toList
+
     })
-    
+
 let sets =
     SetsTypeProvider.GetSample().Rows
     |> Seq.map (fun s -> {
