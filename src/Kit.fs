@@ -1,27 +1,36 @@
 module Kit
 
-open Data
+open BrickData
 
-    [<RequireQualifiedAccess>]    
+    [<RequireQualifiedAccess>]
     module Themes =
-        let   (name: string) =
-            themes
-            |> Seq.filter (fun part -> part.Name.Contains name)
+        let findById  (themeId: int) =
+            themes |> Seq.tryFind (fun theme -> theme.Id = themeId)
             
-        let sets = 
-            sets
-            |> Seq.map (fun part -> part.Theme)
-            
-    [<RequireQualifiedAccess>]    
+        let findByName (themeName: string) =
+            themes |> Seq.tryFind (fun theme -> theme.Name = themeName)
+
+    [<RequireQualifiedAccess>]
     module Sets =
-        let byName (name: string) =
-            sets
-            |> Seq.filter (fun part -> part.Name.Contains name)
+        let findByNumber (setNumber: string) =
+            sets |> Seq.tryFind (fun set -> set.Number = setNumber)
             
-        let byTheme (themeName: string) =
-            sets
-            |> Seq.filter (fun part -> part.Theme.Name = Themes.byName themeName |> Seq.head.Id)
+        let findByName (setName: string) =
+            sets |> Seq.tryFind (fun set -> set.Name = setName)
             
+        let findByYear (year: int) =
+            sets |> Seq.filter (fun set -> set.Year = year)
             
+        let findByYears (years: int list) =
+            sets |> Seq.filter (fun set -> List.contains set.Year years)
             
+        let findByThemeId (themeId: int) =
+            sets |> Seq.filter (fun set -> set.ThemeId = themeId)
             
+        let findByThemeName (themeName: string) =
+            let theme = Themes.findByName themeName
+            sets |> Seq.filter (fun set -> set.ThemeId = theme.Value.Id)
+            
+        
+            
+        
