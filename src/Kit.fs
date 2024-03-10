@@ -3,7 +3,7 @@ module Kit
 open BrickData
 
     [<RequireQualifiedAccess>]
-    module Themes =
+    module Themes =        
         let findById  (themeId: int) =
             themes |> Seq.tryFind (fun theme -> theme.Id = themeId)
             
@@ -11,7 +11,7 @@ open BrickData
             themes |> Seq.tryFind (fun theme -> theme.Name = themeName)
 
     [<RequireQualifiedAccess>]
-    module Sets =
+    module Sets =       
         let findByNumber (setNumber: string) =
             sets |> Seq.tryFind (fun set -> set.Number = setNumber)
             
@@ -30,7 +30,14 @@ open BrickData
         let findByThemeName (themeName: string) =
             let theme = Themes.findByName themeName
             sets |> Seq.filter (fun set -> set.ThemeId = theme.Value.Id)
+    
+    [<RequireQualifiedAccess>]        
+    module Parts =
+        let findByNumber (partNumber: string) =            
+            parts |> Seq.tryFind (fun part -> part.Number = partNumber)
             
+        let findAll = parts
         
-            
-        
+        let findAllForSet (setNumber: string) =
+            let inventory = inventories |> Seq.find (fun i -> i.SetNumber = setNumber)
+            inventoryParts |> Seq.filter (fun part -> part.InventoryId = inventory.Id)
